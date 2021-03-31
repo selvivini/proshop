@@ -1,11 +1,16 @@
 import express from 'express'
+import connectDb from './config/db.js'
 import products from './data/products.js'
 import dotEnv from 'dotenv'
-const app = express()
-
 
 dotEnv.config()
-console.log(process.env.PORT)
+const app = express()
+
+connectDb()
+
+
+
+console.log(process.env.MONGO_URI)
 
 const PORT = process.env.PORT || 5000
 
