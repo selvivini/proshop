@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import { stringify } from 'qs'
 
-const reviewsSchema = mongooose.Schema({
+const reviewsSchema = mongoose.Schema({
     name:{
         type:String,
         required:true
@@ -43,9 +43,9 @@ const productSchema = mongoose.Schema({
         
     },
     description:{
-        type: Number,
+        type: String,
         required: true,
-        default:0
+        
     },
     reviews:[reviewsSchema],
     rating:{
