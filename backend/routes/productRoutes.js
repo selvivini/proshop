@@ -2,6 +2,7 @@ import express from 'express'
 const router = express.Router()
 import asyncHandler from 'express-async-handler'
 import Product from '../models/productModel.js'
+import {notFound, errorHandler} from '../middleware/errorMiddleware.js'
 
 //fetch all products
 //@route get('/api/products)
@@ -21,7 +22,8 @@ router.get('/:id',asyncHandler(async (req,res)=>{
         if(product){
         res.json(product)
         }else{
-            res.status(404).json({msg:'product not found'})
+            res.status(404)
+            throw new Error('Product not found')
         }
         }))
 
