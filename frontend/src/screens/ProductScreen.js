@@ -1,7 +1,7 @@
-import React ,{ useEffect}from 'react'
+import React ,{ useEffect, useState}from 'react'
 import {Link} from 'react-router-dom'
 import {useDispatch,useSelector} from 'react-redux'
-import{Row, Col, Image, ListGroup,Card, Button, ListGroupItem} from 'react-bootstrap'
+import{Row, Col, Image, ListGroup,Card, Button, ListGroupItem,  FormControl} from 'react-bootstrap'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import Rating from '../components/Rating'
@@ -9,14 +9,21 @@ import {listProductDetails} from '../actions/productActions'
 
 
 //match is coming from props.match property which checks the matching params in route
-const ProductScreen = ({match}) => {
+const ProductScreen = ({history, match}) => {
+    const[qty, setQty] = useState(1)
     const dispatch = useDispatch()
-    // const productDetails = useSelector()
-    useEffect(()=>{
-      dispatch(listProductDetails(match.params.id))
-    },[dispatch,match])
+   
+   
   const productDetails = useSelector(state=> state.productDetails)
   const {loading, error, product} = productDetails
+
+  useEffect(()=>{
+    dispatch(listProductDetails(match.params.id))
+  },[dispatch,match])
+
+  const addtoCartHandler = ()=>{
+   history.push(`/cart/${match.params.id}?qty=${qty}`)
+  }
     return (
         <>
          <Link className="btn btn-light my-3" to = '/'>Go Back</Link>
@@ -54,7 +61,20 @@ const ProductScreen = ({match}) => {
                            </Col>
                        </Row>
                        </ListGroupItem>
-   
+                       {product.countInStock > 0 && (
+                           <ListGroupItem>
+                               <Row>
+                                   <Col>Qty</Col>
+                                   <Col>
+                                   <FormControl as= 'select' value={qty} onChange= {(e)=>setQty(e.target.value)}>
+                                  { [...Array(product.countInStock).keys()].map((x) =>(
+                                <option key = {x+1} value= {x+1}>{x+1}</option>
+                                   ))}
+                                   </FormControl>
+                                   </Col>
+                               </Row>
+                           </ListGroupItem>
+                       )}
                        <ListGroupItem>
                        <Row>
                            <Col>
@@ -66,7 +86,7 @@ const ProductScreen = ({match}) => {
                        </Row>
                        </ListGroupItem>
                        <ListGroupItem>
-                      <Button type="button" className="btn  btn-block" disabled = {product.countInStock ===0}>Add To Cart</Button>
+                      <Button onClick={addtoCartHandler} type="button" className="btn  btn-block" disabled = {product.countInStock ===0}>Add To Cart</Button>
                        </ListGroupItem>
                    </ListGroup>
                </Card>
