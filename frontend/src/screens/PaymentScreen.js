@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, FormGroup, FormLabel, FormControl, Button, Col, FormCheck } from 'react-bootstrap';
+import { Form, FormGroup, FormLabel, Button, Col, FormCheck } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import CheckoutSteps from '../components/CheckoutSteps';
 import FormContainer from '../components/FormContainer';
@@ -39,9 +39,6 @@ const PaymentScreen = ({ history }) => {
 						/>
 					</Col>
 				</FormGroup>
-
-               
-                
 
 				<Button type='submit' variant='primary'>
 					Continue
