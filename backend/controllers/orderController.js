@@ -34,7 +34,7 @@ res.status(200).json(createdOrder)
 
 export const getOrderById = asynHandler(async(req, res)=>{
     
-   const order = await Order.findById(req.params.id).populate('user','name','email')
+   const order = await Order.findById(req.params.id).populate('user','name email')
     if(order){
         res.status(200).json(order)
     }else{
