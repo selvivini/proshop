@@ -14,13 +14,17 @@ connectDb()
 
 
 
-console.log(process.env.MONGO_URI)
+
 
 const PORT = process.env.PORT || 5000
 
 
 app.get('/', (req,res)=>{
     res.send("Api is running...")
+})
+// get paypal details
+app.get('/api/config/paypal',(req, res)=>{
+    res.send(process.env.PAYPAL_CLIENT_ID)
 })
 
 app.use(express.json())

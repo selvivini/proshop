@@ -71,11 +71,7 @@ const orderSchema = mongoose.Schema({
             required: true,
             default:0.0
         },
-        taxPrice:{
-            type:Number,
-            required: true,
-            default:0.0
-        },
+        
         shippingPrice:{
             type:Number,
             required: true,
@@ -86,6 +82,12 @@ const orderSchema = mongoose.Schema({
             required: true,
             default:0.0
         },
+        createdAt: {
+            type: Date,
+            default:Date.now(),
+            required: true,
+          
+          },
         isPaid:{
             type:Boolean,
             required:true,
